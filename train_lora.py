@@ -16,6 +16,10 @@ from peft import (
     prepare_model_for_kbit_training,
     TaskType,
 )
+from huggingface_hub import login
+# Log in with your token
+login(token="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")
+print("✅ Successfully logged in to Hugging Face.")
 
 DATA_PATH = "output_data.jsonl"
 OUTPUT_DIR = "mistral-lora"
