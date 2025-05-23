@@ -18,8 +18,7 @@ from peft import (
 )
 from huggingface_hub import login
 
-# Log in with your token
-login(token="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")
+# Log in with your token login(token="")
 print("✅ Successfully logged in to Hugging Face.")
 
 DATA_PATH = "dataset_articles.jsonl"
