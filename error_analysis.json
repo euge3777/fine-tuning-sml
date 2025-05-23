@@ -1,0 +1,392 @@
+[
+  {
+    "prompt": "What is the scientific classification and common name of starfish?",
+    "expected": "Common Name: Starfish (Sea Stars)\nScientific Name: Asteroidea",
+    "generated": "The scientific classification of starfish is Echinodermata, Phylum, and Asteroidea, Class. Common names include sea star, sea star, sea star, sea star, and sea star.\n\nWhat are the common names of starfish?\n\nCommon names include starfish, sea star, sea star, sea star, and sea star.\n\nWhat is the scientific classification of starfish?\n\nStarfish are members of the phylum Echinodermata, class Asteroidea.\n\nWhat is the common name for starfish?\n\nStarfish is",
+    "metrics": {
+      "rouge1_f1": 0.20512820512820512,
+      "rouge2_f1": 0.07894736842105261,
+      "rougeL_f1": 0.17948717948717952,
+      "bleu": 0.005432861613715658,
+      "bertscore_f1": 0.0,
+      "length_ratio": 8.75
+    }
+  },
+  {
+    "prompt": "Why are starfish also called sea stars?",
+    "expected": "Marine scientists have undertaken the difficult task of replacing the beloved starfish\u2019s common name with sea star because, well, the starfish is not a fish. It\u2019s an echinoderm, closely related to sea urchins and sand dollars.",
+    "generated": "Sea stars are echinoderms, or \u201cspiny-skinned animals,\u201d which also includes sea urchins, sea cucumbers, and sand dollars. They are found in all oceans of the world, and can live in both shallow and deep waters.\n\nSea stars are sometimes called starfish, but they are not fish. They are related to sea urchins, which are also echinoderms.\n\nWhat does it mean when a sea star is outstretched?\n\nStretching out the arms of a sea star means that it",
+    "metrics": {
+      "rouge1_f1": 0.3275862068965517,
+      "rouge2_f1": 0.10526315789473685,
+      "rougeL_f1": 0.18965517241379312,
+      "bleu": 0.03763492720872797,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.138888888888889
+    }
+  },
+  {
+    "prompt": "How many species of sea star exist and where do they live?",
+    "expected": "There are some 2,000 species of sea star living in all the world\u2019s oceans, from tropical habitats to the cold seafloor.",
+    "generated": "## How many species of sea star exist and where do they live?\n\nSea stars are found all over the world in every ocean. There are at least 1,700 species of sea star. Some live on the seabed, others are found in the open water.\n\n## What are the three types of sea stars?\n\nSea stars are star-shaped marine invertebrates in the class Asteroidea. They are found in all of the world\u2019s oceans, from the intertidal zone to the deep sea, and come in a wide variety of",
+    "metrics": {
+      "rouge1_f1": 0.30357142857142855,
+      "rouge2_f1": 0.18181818181818182,
+      "rougeL_f1": 0.2857142857142857,
+      "bleu": 0.06514563288778619,
+      "bertscore_f1": 0.0,
+      "length_ratio": 4.190476190476191
+    }
+  },
+  {
+    "prompt": "What are the physical characteristics of sea stars?",
+    "expected": "The five-arm varieties are the most common, hence their name, but species with 10, 20, and even 40 arms exist. They have bony, calcified skin, which protects them from most predators, and many wear striking colors that camouflage them or scare off potential attackers.",
+    "generated": "The sea stars have five arms, and can be up to a meter across. Their bodies are covered in spines, but they have no eyes, and are colorblind. They use chemicals and vibrations to detect their prey, which is usually other marine invertebrates.\n\nWhat are the physical characteristics of the starfish?\n\nStarfish, or sea stars, are marine invertebrates. They have five arms that can be used to move and grasp food. They are covered in spiny skin, which can be light to dark brown. Some species are brightly colored and have bright",
+    "metrics": {
+      "rouge1_f1": 0.26277372262773724,
+      "rouge2_f1": 0.059259259259259255,
+      "rougeL_f1": 0.16058394160583941,
+      "bleu": 0.01618397957978401,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.090909090909091
+    }
+  },
+  {
+    "prompt": "Can sea stars live in freshwater?",
+    "expected": "Purely marine animals, there are no freshwater sea stars, and only a few live in brackish water.",
+    "generated": "This is a question that many people have been asking, and the answer may surprise you. Sea stars, also known as starfish, are marine creatures that live in salt water. But did you know that some species of sea stars can also survive in freshwater?\n\nIn this blog post, we will explore the fascinating world of sea stars and how they adapt to different environments. We will also look at the research being done to understand the potential for sea stars to become invasive species in freshwater ecosystems.\n\nSo, can sea stars live in freshwater? The answer is yes, but it\u2019s not as simple",
+    "metrics": {
+      "rouge1_f1": 0.1639344262295082,
+      "rouge2_f1": 0.049999999999999996,
+      "rougeL_f1": 0.11475409836065574,
+      "bleu": 0.009942803496832754,
+      "bertscore_f1": 0.0,
+      "length_ratio": 6.117647058823529
+    }
+  },
+  {
+    "prompt": "What is special about the regenerative abilities of sea stars?",
+    "expected": "Sea stars are famous for their ability to regenerate limbs, and in some cases, entire bodies. They accomplish this by housing most or all of their vital organs in their arms. Some require the central body to be intact to regenerate, but a few species can grow an entirely new sea star just from a portion of a severed limb.",
+    "generated": "When sea stars are injured, they have the remarkable ability to regenerate.  They can regrow lost limbs and even regenerate entire missing arms.  In fact, there have been reports of regeneration in sea stars missing up to 75% of their bodies.  This ability to regenerate has been studied extensively in sea stars, and the findings are now being applied to other fields of biology.  For example, researchers are using sea star regeneration to help us understand the processes behind regeneration in mammals.\n\nHow do sea stars regenerate?\n\nThe regenerative process in sea",
+    "metrics": {
+      "rouge1_f1": 0.35526315789473684,
+      "rouge2_f1": 0.10666666666666669,
+      "rougeL_f1": 0.25,
+      "bleu": 0.029007443427937762,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.5333333333333334
+    }
+  },
+  {
+    "prompt": "How do sea stars feed?",
+    "expected": "Most sea stars have the remarkable ability to consume prey outside their bodies. Using tiny, suction-cupped tube feet, they pry open clams or oysters, and their sack-like cardiac stomach emerges from their mouth and oozes inside the shell. The stomach then envelops the prey to digest it, and finally withdraws back into the body.",
+    "generated": "Sea stars are carnivores. They feed on a variety of invertebrates, including sea urchins, mollusks, bivalves, worms, and other echinoderms. Sea stars have tube feet that they use to move around and to manipulate prey. When they find food, they use their mouth parts to pull the prey into their mouth and then they use their stomachs to digest the food.\n\nWhat are some facts about sea stars?\n\nSea stars are one of the most interesting and unique animals on Earth. Here are some facts about",
+    "metrics": {
+      "rouge1_f1": 0.36619718309859156,
+      "rouge2_f1": 0.1,
+      "rougeL_f1": 0.2112676056338028,
+      "bleu": 0.03095099782082659,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.5925925925925926
+    }
+  },
+  {
+    "prompt": "What makes starfish different from true fish?",
+    "expected": "Besides its underwater life, it is nothing like a fish: it can push its stomach out of its mouth and eat the inside of a clam.",
+    "generated": "- Starfish are not fish. They are echinoderms, which means \"spiny skin.\" They are more closely related to sea urchins and sand dollars than they are to fish.\n\nWhat is the scientific name of a starfish?\n\n- Starfish are also known as sea stars. The scientific name for starfish is Asteroidea.\n\nWhat is the scientific classification of starfish?\n\n- Kingdom: Animalia\n- Phylum: Echinodermata\n- Class: Asteroidea\n\nHow many species of starfish are there?",
+    "metrics": {
+      "rouge1_f1": 0.1473684210526316,
+      "rouge2_f1": 0.021505376344086023,
+      "rougeL_f1": 0.10526315789473685,
+      "bleu": 0.01191059268014102,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.8461538461538463
+    }
+  },
+  {
+    "prompt": "What are penguins and where do they live?",
+    "expected": "Penguins are flightless seabirds that live almost exclusively below the equator. Some island-dwellers can be found in warmer climates, but most\u2014including emperor, ad\u00e9lie, chinstrap, and gentoo penguins\u2014reside in and around icy Antarctica.",
+    "generated": "Penguins are flightless aquatic birds. They live in the Southern Hemisphere, from the Arctic Circle to the Antarctic Circle.\n\nWhat do penguins eat? Penguins eat fish, squid, krill, crabs, and other sea creatures.\n\nWhat is a penguin\u2019s habitat? Penguins live in the water and on the coasts of the Southern Hemisphere.\n\nHow do penguins swim? Penguins swim by using their flippers to push through the water.\n\nWhat is the life span of a penguin?",
+    "metrics": {
+      "rouge1_f1": 0.18018018018018017,
+      "rouge2_f1": 0.03669724770642202,
+      "rougeL_f1": 0.16216216216216217,
+      "bleu": 0.02301449648319278,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.3125
+    }
+  },
+  {
+    "prompt": "What adaptations help penguins survive in cold climates?",
+    "expected": "A thick layer of blubber and tightly-packed, oily feathers are ideal for colder temperatures.",
+    "generated": "Penguins live in cold climates with little vegetation. They do not have fur, but their feathers are designed to keep them warm and dry. Penguins have more feathers than most other birds, and the feathers are designed to keep the penguins warm in the cold water and wind. A penguin\u2019s feathers are made up of a layer of barbules, which are arranged in rows. The barbules have tiny hooks at the ends that interlock, making the feathers waterproof and windproof. Penguins also have a layer of fat underneath their skin,",
+    "metrics": {
+      "rouge1_f1": 0.11320754716981134,
+      "rouge2_f1": 0.038461538461538464,
+      "rougeL_f1": 0.07547169811320754,
+      "bleu": 0.01186386714598141,
+      "bertscore_f1": 0.0,
+      "length_ratio": 6.428571428571429
+    }
+  },
+  {
+    "prompt": "How do penguin species differ in appearance?",
+    "expected": "The 18 different species of penguins can widely in shape and size but all have black bodies and white bellies. This protective countershading allows them to hide from predators like leopard seals and orcas while they swim.",
+    "generated": "What do penguin chicks look like? How do penguins survive in the Antarctic? What is a penguin\u2019s lifespan? Are penguins endangered?\n\nThis Penguin Facts for Kids page answers these questions and more! Learn about the different species of penguins, their body parts, where they live, what they eat, and their social habits.\n\n## Penguin Facts for Kids\n\nPenguins are one of the most popular animals to visit in the zoo. They are fun to watch, and kids love learning about them.",
+    "metrics": {
+      "rouge1_f1": 0.2542372881355932,
+      "rouge2_f1": 0.05172413793103448,
+      "rougeL_f1": 0.15254237288135594,
+      "bleu": 0.022182352695474153,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.189189189189189
+    }
+  },
+  {
+    "prompt": "How do penguins move and hunt?",
+    "expected": "While penguins can\u2019t fly, their stiff flippers, webbed feet, and sleek shape make them expert swimmers. They spend most of their lives in the ocean and do nearly all of their hunting for krill, squid, and crabs underwater. They can swim about 15 miles an hour, and when they want to go faster, they often porpoise, or leap out of the water as they swim.",
+    "generated": "In this video, you can see penguins diving into the water and hunting for food.\n\n### What is a penguin?\n\nA penguin is a bird that lives in the Southern Hemisphere, where it is very cold. There are 18 different species of penguin. The most well-known are the Emperor Penguin, the King Penguin, and the Gentoo Penguin.\n\n### What does a penguin look like?\n\nPenguins have black and white bodies. Some species of penguins have yellow or orange patches on their",
+    "metrics": {
+      "rouge1_f1": 0.2328767123287671,
+      "rouge2_f1": 0.05555555555555556,
+      "rougeL_f1": 0.12328767123287672,
+      "bleu": 0.02941231199685928,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.2461538461538462
+    }
+  },
+  {
+    "prompt": "How do penguins travel on land?",
+    "expected": "On land, penguins have an upright stance and tend to waddle, hop, or run with their bodies angled forward. Polar penguins can travel long distances quickly by 'tobogganing,' or sliding across the ice on their bellies and pushing forward with their feet.",
+    "generated": "Penguins travel on land by walking on their legs. They have webbed feet, which helps them move through the water quickly and easily. They also have strong flippers that help them steer and maneuver in the water.\n\nWhen penguins are on land, they walk in a waddling gait. This gait helps them move quickly and efficiently across the land. They also have a thick layer of blubber that helps keep them warm when they are in the cold water.\n\nSo, how do penguins travel on land? They walk on their legs, using their webb",
+    "metrics": {
+      "rouge1_f1": 0.2647058823529412,
+      "rouge2_f1": 0.04477611940298508,
+      "rougeL_f1": 0.16176470588235295,
+      "bleu": 0.014341621856044385,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.238095238095238
+    }
+  },
+  {
+    "prompt": "How do penguins survive extreme cold?",
+    "expected": "If it\u2019s especially cold, they huddle together in large colonies that protect them from predators and provide warmth. These colonies consist of thousands, and even millions, of penguins.",
+    "generated": "They have two layers of feathers: a waterproof outer coat and a layer of insulating down feathers.\n\nHow do penguins survive in the cold? Penguins have a dense layer of fat under their skin that helps them stay warm in cold water. They also have special feathers that help them stay warm.\n\nWhy do penguins not freeze in the cold? Penguins have a thick layer of blubber that helps to insulate them and keep them warm in the cold weather. They also have special feathers that help to trap heat and keep them warm.\n\nWhy do p",
+    "metrics": {
+      "rouge1_f1": 0.15873015873015872,
+      "rouge2_f1": 0.0,
+      "rougeL_f1": 0.1111111111111111,
+      "bleu": 0.005633796462139284,
+      "bertscore_f1": 0.0,
+      "length_ratio": 3.4642857142857144
+    }
+  },
+  {
+    "prompt": "What is the breeding behavior of penguins?",
+    "expected": "Penguins come ashore to lay their eggs and raise their chicks. Most penguins stay with their mate for many years and lay only one or two eggs at a time. Parents take turns keeping their eggs warm, and when they hatch, feeding and protecting the chicks.",
+    "generated": "Penguins are one of the most well-known birds in the world, but many people do not know much about their breeding behavior. Penguins typically breed in colonies, and they build nests out of pebbles, grass, or feathers. The male and female penguins will take turns incubating the eggs, which can take up to 30 days. Once the chicks hatch, the parents will feed them regurgitated food for about six weeks. After that, the chicks will be able to forage for themselves.\n\nPenguins are monogamous",
+    "metrics": {
+      "rouge1_f1": 0.32061068702290074,
+      "rouge2_f1": 0.031007751937984496,
+      "rougeL_f1": 0.183206106870229,
+      "bleu": 0.013353439718740034,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.826086956521739
+    }
+  },
+  {
+    "prompt": "How do penguin chicks find their parents?",
+    "expected": "When mother and father return, chicks listen for the unique audio frequency of their parents\u2019 call, allowing them to reunite in a large, noisy crowd.",
+    "generated": "In the wild, penguin chicks often use a call to attract their parents. This call is thought to be unique to each penguin, and may be used to identify themselves to their parents. In some cases, penguin chicks will also use their bill to attract their parents, waving it back and forth in front of them.\n\n## How do penguin chicks find their parents?\n\nPenguin chicks find their parents by using their strong sense of smell. The chicks can detect the scent of their parents\u2019 feathers, which helps them to follow their parents back to their",
+    "metrics": {
+      "rouge1_f1": 0.2,
+      "rouge2_f1": 0.05084745762711864,
+      "rougeL_f1": 0.13333333333333333,
+      "bleu": 0.02084835371186478,
+      "bertscore_f1": 0.0,
+      "length_ratio": 3.84
+    }
+  },
+  {
+    "prompt": "What is catastrophic molt in penguins?",
+    "expected": "Soon after the chicks fledge, parents will begin molting. Unlike some birds that shed a few feathers at a time, penguins lose all their feathers at once during a process called catastrophic molt. They condense this process to just a few weeks because they must fast during this time\u2014they can\u2019t hunt without their waterproof feathers.",
+    "generated": "The penguins shed their feathers completely, which is known as a catastrophic molt. The loss of feathers leaves the penguins unable to swim, and they must remain on land until their new feathers grow in. This is the time when they are most vulnerable to predators, and they are forced to huddle together for warmth and protection.\n\nWhat does a catastrophic molt look like?\n\nThe penguins shed their feathers completely, which is known as a catastrophic molt. The loss of feathers leaves the penguins unable",
+    "metrics": {
+      "rouge1_f1": 0.29577464788732394,
+      "rouge2_f1": 0.04285714285714286,
+      "rougeL_f1": 0.21126760563380284,
+      "bleu": 0.017386781719409057,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.5454545454545454
+    }
+  },
+  {
+    "prompt": "What are the main threats to penguins?",
+    "expected": "About two-thirds of penguin species are listed as threatened on the IUCN Red List. Loss of habitat, disease, and infectious diseases spread by tourists loom as threats. Commercial fishing in the Southern Ocean is also a significant concern, as it has reduced fish supply by about half in the Antarctic Peninsula. This forces many penguins to compete for food, and puts them in danger of getting accidentally captured by fishing nets.",
+    "generated": "Penguins have been around for millions of years, but today they are facing many threats.\n\nGlobal warming and climate change are affecting the food available to penguins. Shifting weather patterns are altering the distribution of penguin prey, and penguins are having to travel further to find food.\n\nThis is especially true for the Antarctic penguins, where the sea ice has been decreasing in recent years. Sea ice provides important habitat for penguins, and the loss of sea ice means that the penguins have to travel further to find the right kind of habitat and",
+    "metrics": {
+      "rouge1_f1": 0.27710843373493976,
+      "rouge2_f1": 0.04878048780487805,
+      "rougeL_f1": 0.1566265060240964,
+      "bleu": 0.015411075620088631,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.323943661971831
+    }
+  },
+  {
+    "prompt": "How does climate change affect penguins?",
+    "expected": "Among the biggest threats to penguin populations is climate change. Warming in the polar regions has melted sea ice, which penguins depend on to find food and build nests. Rapidly changing conditions mean Antarctica could lose most of its penguins to climate change by the end of the century. To survive, they may have to relocate to new habitats.",
+    "generated": "How do penguins cope with changes in their environment? How do they move around in the water? How do they stay warm?\n\nClimate change affects penguins in many ways. It causes changes in their environment, such as warmer temperatures, melting ice, and changes in the availability of food. These changes can make it harder for penguins to find food, and can also make it harder for them to stay warm.\n\nClimate change is a major threat to penguins. It can cause changes in their habitat, such as the loss of ice and changes in the availability of food. These",
+    "metrics": {
+      "rouge1_f1": 0.35443037974683544,
+      "rouge2_f1": 0.11538461538461538,
+      "rougeL_f1": 0.21518987341772153,
+      "bleu": 0.01584941741331114,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.6779661016949152
+    }
+  },
+  {
+    "prompt": "What unusual behaviors do chinstrap penguins display?",
+    "expected": "Chinstrap penguins may be cute, but get too close and your endearing perception of these birds may be tested, given their penchant for projectile pooping and beating each other up.",
+    "generated": "Chinstrap penguins are some of the most social of the penguin species. They often travel in groups called rafts, which can number up to 1,000 birds. They also have a special call that sounds like \u201ckyee-kyee-kyee\u201d or \u201ckyee-kyee-kyeey-kyee.\u201d\n\nWhat is the scientific name for chinstrap penguins?\n\nPygoscelis antarctica\nChinstrap penguins are a species of penguins that are found in the cold waters of the Antarctic",
+    "metrics": {
+      "rouge1_f1": 0.11881188118811882,
+      "rouge2_f1": 0.0202020202020202,
+      "rougeL_f1": 0.09900990099009901,
+      "bleu": 0.012101730445078672,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.1666666666666665
+    }
+  },
+  {
+    "prompt": "What are dolphins and where are they found?",
+    "expected": "Dolphins are small-toothed cetaceans easily recognizable by their curved mouths, which give them a permanent 'smile.' There are 36 dolphin species, found in every ocean. Most dolphins are marine and live in the ocean or brackish waters along coastlines. There are a few species, however, like the South Asian river dolphin and the Amazon river dolphin, or boto, that live in freshwater streams and rivers.",
+    "generated": "Dolphins are small cetaceans, which are marine mammals that live in the ocean. They are part of the same family of animals as whales, and although they are smaller, they are also very intelligent.\n\nThere are more than 40 different species of dolphins. They are found in every ocean in the world, from the Arctic to the Antarctic.\n\nWhere do dolphins live?\n\nDolphins are found in every ocean in the world, from the Arctic to the Antarctic.\n\nThey are known to live in both shallow and deep",
+    "metrics": {
+      "rouge1_f1": 0.3790849673202614,
+      "rouge2_f1": 0.17218543046357615,
+      "rougeL_f1": 0.27450980392156865,
+      "bleu": 0.04824387888173574,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.3384615384615384
+    }
+  },
+  {
+    "prompt": "What is the size range among dolphin species?",
+    "expected": "The largest dolphin, the orca, can grow to be over 30 feet long. The smallest, the Maui dolphin, is just five feet long.",
+    "generated": "The smallest dolphin is the Hector\u2019s dolphin, with a length of around 1.3 m (4.3 ft), and the largest is the orca, with a length of up to 9.8 m (32 ft).\n\nHow many species of dolphins are there?\n\nThere are 41 different dolphin species in the world.\n\nHow many dolphin species are endangered?\n\nSixteen dolphin species are considered endangered, including the vaquita, or Gulf of California porpoise, and",
+    "metrics": {
+      "rouge1_f1": 0.22916666666666663,
+      "rouge2_f1": 0.0851063829787234,
+      "rougeL_f1": 0.14583333333333331,
+      "bleu": 0.013634891972647164,
+      "bertscore_f1": 0.0,
+      "length_ratio": 3.0
+    }
+  },
+  {
+    "prompt": "What do dolphins eat and how do they find food?",
+    "expected": "Dolphins feed chiefly on fish and squid, which they track using echolocation, a built-in sonar that bounces sound waves off prey and reveals information like its location, size, and shape. An echolocating bottlenose dolphin can make up to a thousand clicking noises per second.",
+    "generated": "What is a dolphin\u2019s favorite food?\n\n## What do dolphins eat?\n\nDolphins eat fish and squid, but they can also eat crustaceans and other small fish. They eat as many as 30 different types of fish. Some types of dolphins have been known to eat birds.\n\nDolphins have very few teeth, and those teeth are not used for chewing. They have baleen, which is like a net, to filter out the food from the water.\n\n## How do dolphins find food?\n\nDolph",
+    "metrics": {
+      "rouge1_f1": 0.23809523809523808,
+      "rouge2_f1": 0.03225806451612903,
+      "rougeL_f1": 0.14285714285714285,
+      "bleu": 0.022856945628882467,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.8636363636363635
+    }
+  },
+  {
+    "prompt": "How do dolphins behave socially?",
+    "expected": "Living in pods that can number a dozen or more, dolphins are intensely social mammals that communicate with squeaks, whistles, and clicks. Whether dolphins have language, as humans do, is a topic that scientists have debated for decades.",
+    "generated": "What do they like to do? And how do they communicate?\n\nThese are the questions that a team of researchers from the University of California, San Diego, set out to answer in a paper published in the journal Marine Mammal Science in February 2019.\n\nThe researchers used a technique called focal follows to track the behavior of 16 dolphins in a pod over a period of three weeks. The dolphins were observed using a boat and a GoPro camera, and the researchers tracked their behavior in detail.\n\nWhat did they find?\n\nThe researchers found that the",
+    "metrics": {
+      "rouge1_f1": 0.19402985074626863,
+      "rouge2_f1": 0.0,
+      "rougeL_f1": 0.10447761194029852,
+      "bleu": 0.006052304862418819,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.526315789473684
+    }
+  },
+  {
+    "prompt": "How do dolphins reproduce and care for their young?",
+    "expected": "As mammals, they have warm blood and nurse their young. Dolphins have more than one mate, and generally produce a single offspring that will stay with the mother for up to six years, depending on the species.",
+    "generated": "Dolphins are born tail first. A calf is nursed for a few years, but does not stay with its mother for life. It is often seen in the company of its mother for several years.\n\nDolphins usually have one calf at a time, but sometimes have twins. The mother gives birth to a single calf every two to three years.\n\nThe mother takes care of her young. She swims slowly with the young one at her side.\n\nThe mother teaches the young dolphin to hunt and swim. She also teaches it how to recognize different sounds.",
+    "metrics": {
+      "rouge1_f1": 0.25563909774436094,
+      "rouge2_f1": 0.0916030534351145,
+      "rougeL_f1": 0.15037593984962408,
+      "bleu": 0.017004954257904027,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.5945945945945947
+    }
+  },
+  {
+    "prompt": "How do dolphins swim and why do they leap out of the water?",
+    "expected": "Dolphins are graceful, sleek swimmers that can reach speeds of more than 18 miles an hour. They are also playful and often frolic in a boat\u2019s wake, leaping out of the water\u2014possibly for fun, to communicate, or even shed pesky parasites.",
+    "generated": "Are they jumping for joy or simply playing?  What do they eat and how do they hunt?  How big are dolphins and what do they look like?  What is a dolphin\u2019s life cycle like?  What do dolphins do all day?  What do dolphins communicate about and how do they communicate?  What are dolphins\u2019 natural enemies?  How are dolphins classified?  Are there any dolphin-like creatures?  Do dolphins have any relatives?  What kind of humans are there?  What is the future of dolphins and",
+    "metrics": {
+      "rouge1_f1": 0.2204724409448819,
+      "rouge2_f1": 0.0,
+      "rougeL_f1": 0.12598425196850394,
+      "bleu": 0.0069202324090413166,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.0
+    }
+  },
+  {
+    "prompt": "What are the main threats to dolphins?",
+    "expected": "For centuries, people have hunted dolphins for their meat and blubber. Today, their main threat comes from being caught accidentally in commercial fishing nets. Dolphins must rise regularly to the surface to breathe\u2014becoming entangled in nets prevents this, leading to drowning.",
+    "generated": "The greatest threats to dolphins and other marine mammals are human activity and habitat destruction. The main threats are:\n\n- Capture and slaughter for food, clothing, entertainment, and so on.\n- Pollution of the oceans, rivers, and lakes.\n- Accidental capture in fishing nets.\n- Habitat destruction and loss of food sources.\n- The effects of climate change.\n\nWhat are the threats to dolphins?\n\nHabitat destruction, pollution, hunting, and accidental deaths in fishing nets are the greatest threats to dolphins.",
+    "metrics": {
+      "rouge1_f1": 0.29059829059829057,
+      "rouge2_f1": 0.034782608695652174,
+      "rougeL_f1": 0.22222222222222224,
+      "bleu": 0.01346605066381892,
+      "bertscore_f1": 0.0,
+      "length_ratio": 1.951219512195122
+    }
+  },
+  {
+    "prompt": "How does climate change affect dolphins?",
+    "expected": "For marine dolphins, warming ocean temperatures because of climate change have caused some of their primary food sources to move into deeper, cooler water. Furthermore, marine heatwaves, also caused by climate change, appear to have a negative effect on dolphins' reproductive rates and ability to survive.",
+    "generated": "The effects of climate change on dolphins are becoming increasingly apparent. As sea levels rise and ocean temperatures increase, dolphins are forced to adapt to changing conditions, and in some cases, populations are threatened or even in danger of extinction.\n\nOne of the most significant impacts of climate change on dolphins is the disruption of their migration patterns. Dolphins rely on specific habitats for breeding, feeding, and resting. As these habitats become less hospitable due to changes in temperature, salinity, and other factors, dolphins must migrate to new areas to find suitable conditions.",
+    "metrics": {
+      "rouge1_f1": 0.2733812949640288,
+      "rouge2_f1": 0.08759124087591241,
+      "rougeL_f1": 0.17266187050359713,
+      "bleu": 0.02453269015635402,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.0217391304347827
+    }
+  },
+  {
+    "prompt": "What threats do freshwater dolphins face?",
+    "expected": "In addition to hunting and entanglement in fishing gear, freshwater dolphins face the additional threat of dams fragmenting and degrading habitat.",
+    "generated": "Freshwater dolphins are threatened by habitat loss, pollution, dams, and overfishing.\n\nHow do freshwater dolphins find food?\n\nFreshwater dolphins use echolocation to find their prey. They emit clicks and listen for the echoes that bounce off objects. They can hear the echoes better than we can hear sounds, so they are able to detect the presence of fish, insects, and other prey even when it is hidden underwater.\n\nHow do freshwater dolphins defend themselves?\n\nFreshwater dolphins",
+    "metrics": {
+      "rouge1_f1": 0.2061855670103093,
+      "rouge2_f1": 0.021052631578947368,
+      "rougeL_f1": 0.12371134020618556,
+      "bleu": 0.01208343398907959,
+      "bertscore_f1": 0.0,
+      "length_ratio": 3.619047619047619
+    }
+  },
+  {
+    "prompt": "Where can I learn more about dolphin intelligence?",
+    "expected": "Dive into the science of dolphin cognition with researchers studying how these amazing creatures make sense of their world. Read more about dolphin intelligence online in National Geographic magazine.",
+    "generated": "What are dolphins?\n\nDolphins are a group of highly intelligent marine mammals that belong to the family of oceanic toothed whales. They are carnivorous animals that feed on fish, crustaceans, and squid. They are known for their playful behavior, intelligence, and ability to communicate with one another using complex vocalizations.\n\nDolphins are found in all oceans of the world, except the Arctic and Antarctic. They are usually found in coastal waters, but some species, such as the Orca or Killer Whale,",
+    "metrics": {
+      "rouge1_f1": 0.18181818181818182,
+      "rouge2_f1": 0.0,
+      "rougeL_f1": 0.1090909090909091,
+      "bleu": 0.0063185797863121555,
+      "bertscore_f1": 0.0,
+      "length_ratio": 2.793103448275862
+    }
+  }
+]

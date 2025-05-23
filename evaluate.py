@@ -1,238 +1,166 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-from peft import PeftModel
 import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from peft import PeftModel
 import evaluate
-from nltk.translate.bleu_score import sentence_bleu
+from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from rouge_score import rouge_scorer
 import numpy as np
-from typing import Dict, List
 import json
 import logging
 from tqdm import tqdm
+import argparse
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class ModelEvaluator:
-    def __init__(self, base_model: str, model_path: str):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self.model = AutoModelForCausalLM.from_pretrained(model_path)
-        self.base_model = base_model
-        
-    def generate_response(self, prompt: str) -> str:
-        """Generate a response for a given prompt"""
-        # Tokenize the prompt
-        inputs = self.tokenizer(
-            prompt,
-            return_tensors="pt",
-            padding=True,
-            truncation=True,
-            max_length=512
+    def __init__(self, base_model: str, lora_path: str, skip_bertscore: bool = False):
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
         )
-        
-        # Generate response
-        outputs = self.model.generate(
-            inputs["input_ids"],
-            attention_mask=inputs["attention_mask"],
-            max_length=512,
-            num_return_sequences=1,
-            temperature=0.7,
-            top_p=0.9,
-            do_sample=True,
-            pad_token_id=self.tokenizer.pad_token_id,
-            eos_token_id=self.tokenizer.eos_token_id,
-            no_repeat_ngram_size=3
+        logger.info("Loading tokenizer...")
+        self.tokenizer = AutoTokenizer.from_pretrained(lora_path)
+        self.tokenizer.pad_token = self.tokenizer.eos_token
+        logger.info("Loading base model...")
+        self.model = AutoModelForCausalLM.from_pretrained(
+            base_model,
+            quantization_config=bnb_config,
+            device_map="auto",
+            trust_remote_code=True
         )
-        
-        # Decode the response
-        response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        
-        # Extract only the bot's response
-        if "Bot:" in response:
-            response = response.split("Bot:")[-1].strip()
-        
-        return response
-    
-    def evaluate_batch(self, dataset):
-        """Evaluate the model on a batch of examples"""
-        metrics = {
-            'rouge1_f1': 0,
-            'rouge2_f1': 0,
-            'rougeL_f1': 0,
-            'bleu': 0,
-            'bertscore': 0
-        }
-        
-        total = 0
-        for example in dataset:
-            # Generate response
-            response = self.generate_response(example['text'])
-            
-            # Extract ground truth
-            ground_truth = example['text'].split('Bot:')[-1].strip()
-            
-            # Calculate metrics
-            rouge = evaluate.load('rouge')
-            bleu = evaluate.load('bleu')
-            bertscore = evaluate.load('bertscore')
-            
-            # ROUGE scores
-            rouge_scores = rouge.compute(
-                predictions=[response],
-                references=[ground_truth],
-                use_stemmer=True
-            )
-            
-            # BLEU score
-            bleu_score = bleu.compute(
-                predictions=[response.split()],
-                references=[[ground_truth.split()]],
-                max_order=4
-            )
-            
-            # BERTScore
-            bertscore_scores = bertscore.compute(
-                predictions=[response],
-                references=[ground_truth],
-                model_type='microsoft/deberta-xlarge-mnli'
-            )
-            
-            # Update metrics
-            metrics['rouge1_f1'] += rouge_scores['rouge1']
-            metrics['rouge2_f1'] += rouge_scores['rouge2']
-            metrics['rougeL_f1'] += rouge_scores['rougeL']
-            metrics['bleu'] += bleu_score['bleu']
-            metrics['bertscore'] += sum(bertscore_scores['f1']) / len(bertscore_scores['f1'])
-            
-            total += 1
-        
-        # Average metrics
-        for metric in metrics:
-            metrics[metric] /= total
-        
-        return metrics
+        logger.info("Loading LoRA adapter...")
+        self.model = PeftModel.from_pretrained(self.model, lora_path)
+        self.model.eval()
+        self.skip_bertscore = skip_bertscore
+        if not skip_bertscore:
+            try:
+                self.bertscore = evaluate.load('bertscore')
+            except Exception:
+                self.bertscore = None
+        else:
+            self.bertscore = None
 
-    def calculate_metrics(self, prediction: str, reference: str) -> Dict[str, float]:
-        # Calculate ROUGE scores
-        rouge_scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
-        rouge_scores = rouge_scorer.score(prediction, reference)
-        
-        # Calculate BLEU score
-        bleu_score = sentence_bleu(
+    def generate_response(self, prompt: str, max_new_tokens: int = 128) -> str:
+        inputs = self.tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
+        inputs = {k: v.to(self.model.device) for k, v in inputs.items()}
+        with torch.no_grad():
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=max_new_tokens,
+                do_sample=True,
+                temperature=0.7,
+                top_p=0.95,
+                pad_token_id=self.tokenizer.eos_token_id
+            )
+        generated = outputs[0][inputs['input_ids'].shape[1]:]
+        response = self.tokenizer.decode(generated, skip_special_tokens=True)
+        return response.strip()
+
+    def calculate_metrics(self, prediction: str, reference: str) -> dict:
+        scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
+        rouge_scores = scorer.score(prediction, reference)
+        smoothie = SmoothingFunction().method4
+        bleu = sentence_bleu(
             [reference.split()],
             prediction.split(),
-            weights=(0.25, 0.25, 0.25, 0.25)
+            weights=(0.25, 0.25, 0.25, 0.25),
+            smoothing_function=smoothie
         )
-        
-        # Calculate BERTScore
-        bertscore = evaluate.load('bertscore')
-        bertscore_results = bertscore.compute(
-            predictions=[prediction],
-            references=[reference],
-            lang="en"
-        )
-        
-        # Compile metrics
-        metrics = {
+        # Use preloaded BERTScore
+        if self.bertscore is not None:
+            try:
+                bertscore_results = self.bertscore.compute(
+                    predictions=[prediction],
+                    references=[reference],
+                    lang="en"
+                )
+                bert_f1 = float(np.mean(bertscore_results['f1']))
+            except Exception:
+                bert_f1 = 0.0
+        else:
+            bert_f1 = 0.0
+
+        return {
             'rouge1_f1': rouge_scores['rouge1'].fmeasure,
             'rouge2_f1': rouge_scores['rouge2'].fmeasure,
             'rougeL_f1': rouge_scores['rougeL'].fmeasure,
-            'bleu': bleu_score,
-            'bertscore_f1': np.mean(bertscore_results['f1']),
-            'bertscore_precision': np.mean(bertscore_results['precision']),
-            'bertscore_recall': np.mean(bertscore_results['recall']),
+            'bleu': bleu,
+            'bertscore_f1': bert_f1,
+            'length_ratio': len(prediction.split()) / max(1, len(reference.split()))
         }
-        
-        # Add length ratio metric
-        metrics['length_ratio'] = len(prediction.split()) / len(reference.split())
-        
-        return metrics
 
-    def evaluate_batch(self, eval_data: List[Dict]) -> Dict[str, float]:
+    def evaluate_batch(self, eval_data):
         all_metrics = []
-        failed_generations = 0
-        
+        failed = 0
         for item in tqdm(eval_data, desc="Evaluating"):
-            prompt = f"Context: {item['context']}\nUser: {item['question']}\nBot:"
+            prompt = item["prompt"]
+            reference = item["response"].strip()
             try:
-                generated_response = self.generate_response(prompt)
-                response = generated_response.split("Bot:", 1)[1].strip()
-                metrics = self.calculate_metrics(response, item['answer'])
+                prediction = self.generate_response(prompt)
+                metrics = self.calculate_metrics(prediction, reference)
                 all_metrics.append(metrics)
             except Exception as e:
                 logger.warning(f"Failed to evaluate example: {str(e)}")
-                failed_generations += 1
-        
-        # Calculate average metrics
-        avg_metrics = {
-            key: np.mean([m[key] for m in all_metrics])
-            for key in all_metrics[0].keys()
-        }
-        
-        # Add failure rate metric
-        avg_metrics['failure_rate'] = failed_generations / len(eval_data)
-        
+                failed += 1
+        avg_metrics = {k: np.mean([m[k] for m in all_metrics]) for k in all_metrics[0].keys()}
+        avg_metrics['failure_rate'] = failed / len(eval_data)
         return avg_metrics
 
-    def analyze_errors(self, eval_data: List[Dict], threshold: float = 0.5) -> List[Dict]:
-        """Analyze specific examples where the model performs poorly"""
-        error_analysis = []
-        
+    def analyze_errors(self, eval_data, threshold=0.5):
+        error_cases = []
         for item in eval_data:
-            prompt = f"Context: {item['context']}\nUser: {item['question']}\nBot:"
-            generated_response = self.generate_response(prompt)
-            
+            prompt = item["prompt"]
+            reference = item["response"].strip()
             try:
-                response = generated_response.split("Bot:", 1)[1].strip()
-                metrics = self.calculate_metrics(response, item['answer'])
-                
-                # If any metric is below threshold, add to error analysis
+                prediction = self.generate_response(prompt)
+                metrics = self.calculate_metrics(prediction, reference)
                 if any(v < threshold for k, v in metrics.items() if k != 'length_ratio'):
-                    error_analysis.append({
-                        'question': item['question'],
-                        'expected': item['answer'],
-                        'generated': response,
-                        'metrics': metrics
+                    error_cases.append({
+                        "prompt": prompt,
+                        "expected": reference,
+                        "generated": prediction,
+                        "metrics": metrics
                     })
             except Exception as e:
-                error_analysis.append({
-                    'question': item['question'],
-                    'error': str(e)
+                error_cases.append({
+                    "prompt": prompt,
+                    "error": str(e)
                 })
-        
-        return error_analysis
+        return error_cases
 
 def main():
-    # Configuration
-    base_model = "gpt2"
-    model_path = "./lora-gpt2-output/final"
-    
-    # Load test data
-    with open('test_data.jsonl', 'r', encoding='utf-8') as f:
-        test_data = [json.loads(line) for line in f]
-    
-    # Initialize evaluator
-    evaluator = ModelEvaluator(base_model, model_path)
-    
-    # Run evaluation
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--fast", action="store_true", help="Skip BERTScore for faster evaluation")
+    args = parser.parse_args()
+
+    base_model = "mistralai/Mistral-7B-v0.1"
+    lora_path = "./mistral-lora"
+    data_path = "dataset_articles.jsonl"
+
+    with open(data_path, "r", encoding="utf-8") as f:
+        eval_data = [json.loads(line) for line in f]
+
+    evaluator = ModelEvaluator(base_model, lora_path, skip_bertscore=args.fast)
+
     logger.info("Starting evaluation...")
-    metrics = evaluator.evaluate_batch(test_data)
-    
-    # Print results
+    metrics = evaluator.evaluate_batch(eval_data)
     logger.info("\nEvaluation Results:")
     for metric, value in metrics.items():
         logger.info(f"{metric}: {value:.4f}")
-    
-    # Run error analysis
+
+    # Save metrics for wandb_evaluate.py
+    with open("evaluation_metrics.json", "w", encoding="utf-8") as f:
+        json.dump(metrics, f, indent=2)
+
     logger.info("\nRunning error analysis...")
-    error_cases = evaluator.analyze_errors(test_data)
-    
-    # Save error analysis
-    with open('error_analysis.json', 'w', encoding='utf-8') as f:
+    error_cases = evaluator.analyze_errors(eval_data)
+    with open("error_analysis.json", "w", encoding="utf-8") as f:
         json.dump(error_cases, f, indent=2)
-    
     logger.info(f"\nFound {len(error_cases)} problematic examples")
     logger.info("Error analysis saved to error_analysis.json")
 
 if __name__ == "__main__":
-    main() 
+    main()

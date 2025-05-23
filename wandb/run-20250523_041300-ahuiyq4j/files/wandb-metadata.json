@@ -1,0 +1,38 @@
+{
+  "os": "Windows-10-10.0.19045-SP0",
+  "python": "CPython 3.11.9",
+  "startedAt": "2025-05-23T04:13:00.481773Z",
+  "program": "C:\\Users\\gpuadmin\\Documents\\GitHub\\fine-tuning-sml\\wandb_evaluate.py",
+  "codePath": "wandb_evaluate.py",
+  "email": "eugeniapoon35@gmail.com",
+  "root": "C:\\Users\\gpuadmin\\Documents\\GitHub\\fine-tuning-sml",
+  "host": "GPUTestVM",
+  "executable": "C:\\Users\\gpuadmin\\Documents\\GitHub\\fine-tuning-sml\\venv\\Scripts\\python.exe",
+  "codePathLocal": "wandb_evaluate.py",
+  "cpu_count": 6,
+  "cpu_count_logical": 6,
+  "gpu": "Tesla V100-PCIE-16GB",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "135839870976",
+      "used": "56427425792"
+    }
+  },
+  "memory": {
+    "total": "120258613248"
+  },
+  "cpu": {
+    "count": 6,
+    "countLogical": 6
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Tesla V100-PCIE-16GB",
+      "memoryTotal": "17179869184",
+      "cudaCores": 5120,
+      "architecture": "Volta"
+    }
+  ],
+  "cudaVersion": "12.2"
+}

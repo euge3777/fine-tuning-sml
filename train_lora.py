@@ -1,7 +1,7 @@
 import os
 import torch
 import json
-from datasets import load_dataset, Dataset
+from datasets import Dataset
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -17,11 +17,12 @@ from peft import (
     TaskType,
 )
 from huggingface_hub import login
+
 # Log in with your token
 login(token="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")
 print("✅ Successfully logged in to Hugging Face.")
 
-DATA_PATH = "output_data.jsonl"
+DATA_PATH = "dataset_articles.jsonl"
 OUTPUT_DIR = "mistral-lora"
 MISTRAL_OUTPUT = "mistral-output"
 MODEL_NAME = "mistralai/Mistral-7B-v0.1"
@@ -63,18 +64,21 @@ def load_jsonl(path):
 dataset = load_jsonl(DATA_PATH)
 
 def tokenize(example):
-    full_input = example["prompt"] + "\n" + example["response"]
+    # Encourage concise answers
+    instruction = "Answer concisely:\n"
+    prompt = instruction + example["prompt"] + "\n"
+    full_input = prompt + example["response"]
     input_ids = tokenizer(
         full_input,
         truncation=True,
         padding="max_length",
-        max_length=512
+        max_length=256
     )["input_ids"]
 
-    prompt_ids = tokenizer(example["prompt"] + "\n", truncation=True, max_length=512)["input_ids"]
+    prompt_ids = tokenizer(prompt, truncation=True, max_length=256)["input_ids"]
     labels = [-100] * len(prompt_ids) + input_ids[len(prompt_ids):]
-    labels = labels[:512]
-    input_ids = input_ids[:512]
+    labels = labels[:256]
+    input_ids = input_ids[:256]
 
     return {
         "input_ids": input_ids,
@@ -88,7 +92,7 @@ training_args = TrainingArguments(
     output_dir=MISTRAL_OUTPUT,
     per_device_train_batch_size=4,
     gradient_accumulation_steps=4,
-    num_train_epochs=3,
+    num_train_epochs=5,  # Increased epochs for better learning
     logging_steps=50,
     save_steps=500,
     save_total_limit=2,
