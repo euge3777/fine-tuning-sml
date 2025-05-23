@@ -108,3 +108,32 @@ bitsandbytes:
 E. Test CUDA in Python
 Run:
 Should print True.
+
+Your documentation is already very thorough! Here are a few additional suggestions to make it even more robust and user-friendly for future reference or for collaborators:
+
+1. Prerequisites & Environment Setup
+List required Python version (e.g., Python 3.10+).
+List all required Python packages and recommend using a virtual environment.
+Provide a sample requirements.txt or installation command:
+2. Directory Structure Example
+Show a minimal project structure so users know where to place files:
+
+3. Sample Commands
+Provide example commands for each step:
+
+4. Troubleshooting Section
+Add common issues and solutions, e.g.:
+
+CUDA not available: Check driver installation and run nvidia-smi.
+bitsandbytes errors: Ensure you installed the CUDA-enabled version.
+wandb login prompt: Only needed once per environment.
+5. Security Note
+If you include your Hugging Face token in scripts, remind users to keep it private and consider using environment variables for sensitive info.
+
+6. References & Further Reading
+Link to:
+
+LoRA paper
+Hugging Face Transformers docs
+wandb docs
+bitsandbytes docs
