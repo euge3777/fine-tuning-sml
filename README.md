@@ -91,3 +91,20 @@ Configure and run train_lora.py for LoRA fine-tuning.
 Run evaluate.py to compute metrics and save results.
 Run wandb_evaluate.py to log results to wandb for visualization and tracking.
 Review metrics and error analysis to guide further improvements.
+
+B. Install NVIDIA Drivers
+Check Device Manager (Windows) or lspci (Linux) to confirm the GPU is visible.
+Download and install the latest NVIDIA driver for your GPU model:
+NVIDIA Data Center Drivers
+For Windows, use the Quadro/Data Center driver (e.g., version 537.70 for V100/A10).
+Reboot after installation.
+C. Verify GPU Availability
+Open a terminal and run:
+You should see your GPU listed with driver and CUDA version.
+D. Install CUDA-enabled Libraries
+PyTorch:
+Install the CUDA version matching your driver (e.g., for CUDA 12.1):
+bitsandbytes:
+E. Test CUDA in Python
+Run:
+Should print True.
