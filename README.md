@@ -1,139 +1,196 @@
-# fine-tuning-sml
+# Fine-Tuning LLM with LoRA on Mistral-7B
 
-taking inspiration from https://medium.com/data-science-collective/i-fine-tuned-an-llm-on-5-years-of-telegram-chats-7bacb66387c8
+## 🚀 Final Training Logs
 
-training logs: 
-train_loss: 2.30
-This is your final average training loss after 5 epochs. Lower loss generally means the model is fitting your data better. Compared to your previous runs (with higher loss), this is a good sign—your model is learning.
+    Train Loss	2.30
+    
+    Epochs    	5.0
+    
+    Samples/sec	0.712
+    
+    Steps/sec	0.047
+    
+    Total Training Time	210.8 seconds
 
-epoch: 5.0
-Training completed for 5 full passes over your dataset.
-
-train_samples_per_second: 0.712
-About 0.7 samples processed per second (expected for large models on small datasets).
-
-train_steps_per_second: 0.047
-About 0.05 optimization steps per second.
-
-train_runtime: 210.8 seconds
-Total training time.
-
-Fine-Tuning Mistral-7B with LoRA: Setup & Process Documentation
+## 🛠️ Fine-Tuning Setup
 1. Dataset Preparation
-Format: Each example is a JSON line with prompt and response fields.
-Example:
-File: dataset_articles.jsonl
-2. Model & Tokenizer Setup
-Base Model: mistralai/Mistral-7B-v0.1
-Tokenizer: Loaded from the same base model.
-Quantization: 4-bit quantization using bitsandbytes for efficient GPU memory usage.
-3. LoRA (Low-Rank Adaptation) Steps
-Purpose: LoRA enables efficient fine-tuning by injecting trainable low-rank matrices into certain layers, drastically reducing the number of trainable parameters.
-Configuration:
-r=16: Rank of the update matrices (higher = more capacity, more memory).
-lora_alpha=32: Scaling factor for the LoRA updates.
-target_modules=["q_proj", "v_proj"]: Apply LoRA to the query and value projection layers.
-lora_dropout=0.05: Dropout applied to LoRA layers during training.
-bias="none": No bias adaptation.
-task_type=TaskType.CAUSAL_LM: For causal language modeling tasks.
-4. Tokenization & Data Collation
-Prompt Engineering:
-Each prompt is prepended with "Answer concisely:\n" to encourage shorter, focused responses.
-Tokenization:
-max_length=256 to prevent overly long sequences.
-Labels are masked (-100) for the prompt part so only the response is used for loss calculation.
+
+    Format: JSONL with prompt and response fields
+
+    Example File: dataset_articles.jsonl
+
+3. Model & Tokenizer
+
+    Base Model: mistralai/Mistral-7B-v0.1: **Create a free Hugging Face account (link below), request access for gated model and retrieve access token with read permissions**
+    
+    Tokenizer: Loaded from base model
+    
+    Quantization: 4-bit via bitsandbytes for memory efficiency
+
+5. LoRA Configuration
+python
+```
+{
+  "r": 16,
+  "lora_alpha": 32,
+  "target_modules": ["q_proj", "v_proj"],
+  "lora_dropout": 0.05,
+  "bias": "none",
+  "task_type": "CAUSAL_LM"
+}
+```
+
+4. Prompt Engineering & Tokenization
+
+```
+Prompt format: "Answer concisely:\n{your prompt}"
+    
+max_length = 256
+    
+Labels are masked (-100) for prompts, so loss is only calculated on responses.
+```
+
 5. Training Configuration
-Arguments:
+```
 per_device_train_batch_size=4
 gradient_accumulation_steps=4
-num_train_epochs=5 (increase for small datasets)
+num_train_epochs=5
 learning_rate=2e-4
-fp16=False, bf16=True (mixed precision for speed/memory)
-output_dir="mistral-output"
-Trainer:
-Uses Hugging Face Trainer with a DataCollatorForLanguageModeling.
-6. Evaluation Metrics
-ROUGE (rouge1_f1, rouge2_f1, rougeL_f1):
-Measures word and phrase overlap between generated and reference answers.
-BLEU:
-Measures n-gram overlap (strict, penalizes extra/missing words).
-BERTScore:
-Measures semantic similarity using a pretrained BERT model.
-length_ratio:
-Ratio of generated answer length to reference length (should be close to 1).
-failure_rate:
-Fraction of prompts where the model failed to generate an answer.
-7. Evaluation Process
-Run evaluate.py:
-Computes all metrics and saves results to evaluation_metrics.json.
-Saves detailed error cases to error_analysis.json.
-Supports a --fast flag to skip BERTScore for quicker runs.
-8. Experiment Tracking with wandb
-Purpose:
-Track, visualize, and compare experiments and evaluation results.
-Setup:
-Create a wandb account and log in when prompted.
-Use wandb_evaluate.py to upload metrics and error analysis after evaluation.
-What gets logged:
-All evaluation metrics.
-Error analysis as a table for easy inspection.
-9. Future Improvements
-Increase dataset size and diversity for better generalization.
-Tune LoRA parameters (r, lora_alpha, target_modules) for your specific task.
-Experiment with prompt engineering to further encourage concise, relevant answers.
-Use a validation split and early stopping to prevent overfitting.
-Try instruction-tuned base models if available.
-Refine generation parameters (e.g., max_new_tokens, length_penalty) for more focused outputs.
-Automate hyperparameter sweeps using wandb for systematic optimization.
-10. Summary Workflow
-Prepare dataset in JSONL format.
-Configure and run train_lora.py for LoRA fine-tuning.
-Run evaluate.py to compute metrics and save results.
-Run wandb_evaluate.py to log results to wandb for visualization and tracking.
-Review metrics and error analysis to guide further improvements.
+fp16=False
+bf16=True
+output_dir="mistral-output
+```
+  Trainer: Hugging Face Trainer with DataCollatorForLanguageModeling
 
-B. Install NVIDIA Drivers
-Check Device Manager (Windows) or lspci (Linux) to confirm the GPU is visible.
-Download and install the latest NVIDIA driver for your GPU model:
-NVIDIA Data Center Drivers
-For Windows, use the Quadro/Data Center driver (e.g., version 537.70 for V100/A10).
-Reboot after installation.
+## 📊 Evaluation Metrics
+**Metric	Description**
+
+    ROUGE	Measures word/phrase overlap (rouge1_f1, rouge2_f1, rougeL_f1)
+    
+    BLEU	Measures n-gram overlap (strict)
+    
+    BERTScore	Semantic similarity using BERT
+    
+    Length Ratio	Ratio of generated vs reference answer length
+    
+    Failure Rate	Fraction of empty or failed responses
+
+**Run Evaluation**
+
+powershell
+
+```
+python evaluate.py
+```
+
+**Optional fast mode**
+
+```
+python evaluate.py --fast
+```
+
+Outputs: evaluation_metrics.json, error_analysis.json
+
+## 📈 Experiment Tracking with wandb
+Setup
+powershell
+```
+wandb login # You would need to create a free account, input access token retrieved
+```
+Log Metrics
+```
+python wandb_evaluate.py
+```
+What’s Logged:
+All evaluation metrics
+Detailed error table for inspection
+![Screenshot 2025-05-23 143949](https://github.com/user-attachments/assets/7b82d167-229c-47f9-a9ea-a60086548e02)
+
+## 🔧 System Setup & Environment
+A. Prerequisites
+Python 3.10+
+Install packages via:
+```
+pip install -r requirements.txt
+```
+
+B. NVIDIA Driver Installation
+Windows: Use Quadro/Data Center driver (e.g., v537.70 for V100/A10)
+
 C. Verify GPU Availability
-Open a terminal and run:
-You should see your GPU listed with driver and CUDA version.
-D. Install CUDA-enabled Libraries
-PyTorch:
-Install the CUDA version matching your driver (e.g., for CUDA 12.1):
-bitsandbytes:
+```
+nvidia-smi
+```
+D. CUDA Libraries Installation
+Install PyTorch with CUDA support matching your driver version
+Install CUDA-enabled bitsandbytes
+
 E. Test CUDA in Python
-Run:
-Should print True.
+python
+```
+import torch
+print(torch.cuda.is_available()) # Should return True
+```
 
-Your documentation is already very thorough! Here are a few additional suggestions to make it even more robust and user-friendly for future reference or for collaborators:
+## 🗂️ Project Structure
+```
+.
+├── dataset_articles.jsonl
+├── train_lora.py
+├── evaluate.py
+├── wandb_evaluate.py
+├── mistral-output/
+├── requirements.txt
+└── README.md
+```
 
-1. Prerequisites & Environment Setup
-List required Python version (e.g., Python 3.10+).
-List all required Python packages and recommend using a virtual environment.
-Provide a sample requirements.txt or installation command:
-2. Directory Structure Example
-Show a minimal project structure so users know where to place files:
+## 🔄 Sample Workflow
 
-3. Sample Commands
-Provide example commands for each step:
+1. Prepare your dataset in JSONL format
 
-4. Troubleshooting Section
-Add common issues and solutions, e.g.:
+   **How I Prepared My Dataset:**
 
-CUDA not available: Check driver installation and run nvidia-smi.
-bitsandbytes errors: Ensure you installed the CUDA-enabled version.
-wandb login prompt: Only needed once per environment.
-5. Security Note
-If you include your Hugging Face token in scripts, remind users to keep it private and consider using environment variables for sensitive info.
+    Created a file (articles.txt) containing a list of Q&A pairs in JSON format, with each item having a ```prompt``` and a ```response```.
+      
+      Converted this list into a JSONL file ```(dataset_articles.jsonl)``` using a Python script ```(prepare_data.py)```.
+      
+      The script reads the JSON array and writes each Q&A pair as a single line in the new file.
+      
+      Result: The final dataset is in **JSONL format**, with one prompt-response pair per line, ready for fine-tuning language models.
 
-6. References & Further Reading
-Link to:
+2. Run:
+```
+python train_lora.py
+```
+3. Evaluation:
+```
+python evaluate.py
+```
+4. Upload results to Weights & Biases:
+```
+python wandb_evaluate.py
+```
 
-LoRA paper
-Hugging Face Transformers docs
-wandb docs
-bitsandbytes docs
+💡 Future Improvements
+1. Increase dataset size & diversity
+
+2. Tune LoRA parameters (r, alpha, target_modules)
+
+3. Refine prompts to improve generation quality
+
+4. Use validation splits with early stopping
+
+5. Explore instruction-tuned base models
+
+6. Automate hyperparameter sweeps using wandb
+
+
+## 📚 References & Further Reading
+
+[Fine-Tuning LLM on Telegram Chats](https://medium.com/data-science-collective/i-fine-tuned-an-llm-on-5-years-of-telegram-chats-7bacb66387c8)
+
+[Experimental Insights](https://www.encora.com/insights/fine-tuning-small-language-models-experimental-insights)
+
+[Weights & Biases Page](https://wandb.ai/site/)
+
+[Hugging Face Page](https://huggingface.co/models)
