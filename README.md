@@ -1,16 +1,66 @@
 # Fine-Tuning LLM with LoRA on Mistral-7B
 
-## 🚀 Final Training Logs
+## 📘 Table of Contents
 
-    Train Loss	2.30
-    
-    Epochs    	5.0
-    
-    Samples/sec	0.712
-    
-    Steps/sec	0.047
-    
-    Total Training Time	210.8 seconds
+- 🔄 Sample Workflow
+- 🗂️ Project Structure
+- 🛠️ Fine-Tuning Setup
+  - Dataset Preparation
+  - Model & Tokenizer
+  - LoRA Configuration
+  - Prompt Engineering & Tokenization
+  - Training Configuration
+- 📊 Evaluation Metrics
+- 📈 Experiment Tracking with wandb
+- 🔧 System Setup & Environment
+- 💡 Future Improvements
+- 📚 References & Further Reading
+  
+## 🔄 Sample Workflow
+
+1. Prepare your dataset in JSONL format
+
+   **How I Prepared My Dataset:**
+
+    Created a file (articles.txt) containing a list of Q&A pairs in JSON format, with each item having a ```prompt``` and a ```response```.
+      
+      Converted this list into a JSONL file ```(dataset_articles.jsonl)``` using a Python script ```(prepare_data.py)```.
+      
+      The script reads the JSON array and writes each Q&A pair as a single line in the new file.
+      
+      Result: The final dataset is in **JSONL format**, with one prompt-response pair per line, ready for fine-tuning language models.
+
+2. Run:
+```
+python train_lora.py
+```
+3. Evaluation:
+```
+python evaluate.py
+```
+4. Upload results to Weights & Biases:
+```
+python wandb_evaluate.py
+```
+5. Inference with test.py
+
+Use test.py to run inference on your fine-tuned Mistral-7B model with LoRA adapters.
+```
+python test.py --prompt "How do dolphins swim?."
+```
+
+## 🗂️ Project Structure
+```
+.
+├── dataset_articles.jsonl
+├── train_lora.py
+├── evaluate.py
+├── wandb_evaluate.py
+├── mistral-output
+├── test.py
+├── requirements.txt
+└── README.md
+```
 
 ## 🛠️ Fine-Tuning Setup
 1. Dataset Preparation
@@ -130,45 +180,6 @@ python
 ```
 import torch
 print(torch.cuda.is_available()) # Should return True
-```
-
-## 🗂️ Project Structure
-```
-.
-├── dataset_articles.jsonl
-├── train_lora.py
-├── evaluate.py
-├── wandb_evaluate.py
-├── mistral-output/
-├── requirements.txt
-└── README.md
-```
-
-## 🔄 Sample Workflow
-
-1. Prepare your dataset in JSONL format
-
-   **How I Prepared My Dataset:**
-
-    Created a file (articles.txt) containing a list of Q&A pairs in JSON format, with each item having a ```prompt``` and a ```response```.
-      
-      Converted this list into a JSONL file ```(dataset_articles.jsonl)``` using a Python script ```(prepare_data.py)```.
-      
-      The script reads the JSON array and writes each Q&A pair as a single line in the new file.
-      
-      Result: The final dataset is in **JSONL format**, with one prompt-response pair per line, ready for fine-tuning language models.
-
-2. Run:
-```
-python train_lora.py
-```
-3. Evaluation:
-```
-python evaluate.py
-```
-4. Upload results to Weights & Biases:
-```
-python wandb_evaluate.py
 ```
 
 💡 Future Improvements
